@@ -37,7 +37,11 @@ public class HibernateUtil {
 	                configuration.addAnnotatedClass(Instructor.class);
 	                configuration.addAnnotatedClass(InstructorDetail.class);
 	                configuration.addAnnotatedClass(InstructorDetailBiDirectional.class);
-	                configuration.addAnnotatedClass(InstructorBiDirectional.class);
+	                configuration.addAnnotatedClass(InstructorBiDirectional.class); 
+	                
+	                
+	                configuration.addAnnotatedClass(InstructorOneToManyB.class);
+	                configuration.addAnnotatedClass(CourseOneToMany.class);
 	                
 	                ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 	                    .applySettings(configuration.getProperties()).build();
