@@ -43,6 +43,8 @@ public class HibernateUtil {
 	                configuration.addAnnotatedClass(InstructorOneToManyB.class);
 	                configuration.addAnnotatedClass(CourseOneToMany.class);
 	                
+	                configuration.addAnnotatedClass(Review.class);
+	                
 	                ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 	                    .applySettings(configuration.getProperties()).build();
 

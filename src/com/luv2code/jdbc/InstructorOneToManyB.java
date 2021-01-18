@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -48,7 +49,9 @@ public class InstructorOneToManyB {
 	//look for instructor_id in the Course class
 	
 	//Mapping to Courses One To Many
-	@OneToMany(mappedBy="instructorOneToManyB",cascade = {CascadeType.PERSIST, 
+	//Eager will load instructor and all its child table (courses, instructor details)
+	//Lazy will load only instructor
+	@OneToMany(fetch = FetchType.LAZY,mappedBy="instructorOneToManyB",cascade = {CascadeType.PERSIST, 
 			CascadeType.REFRESH,CascadeType.DETACH, CascadeType.MERGE})
 	private List<CourseOneToMany> allCourses;
 	

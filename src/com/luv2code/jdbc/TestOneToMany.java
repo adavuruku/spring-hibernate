@@ -58,7 +58,7 @@ public class TestOneToMany {
 		}else {
 			System.out.println("User Not Found !!!");
 		}
-		*/
+		
 		
 		//Delete A cOURSE
 		CourseOneToMany delInstructorO = session.get(CourseOneToMany.class, 2);
@@ -69,10 +69,40 @@ public class TestOneToMany {
 		}else {
 			System.out.println("Course Not Found !!!");
 		}
+		*/
+		
+		//test Uni directional
+		//saving reviews
+	//	CourseOneToMany courseOneToMany = session.get(CourseOneToMany.class, 4);
+//		courseOneToMany.addReview(new Review("YEEY "));
+//		courseOneToMany.addReview(new Review("Waoo "));
+//		courseOneToMany.addReview(new Review("Wello "));
+//		
+//		session.save(courseOneToMany);
+		
+		//fetching revies
+//		CourseOneToMany courseOneToMany = session.get(CourseOneToMany.class, 4);
+//		System.out.println(courseOneToMany.toString());
+//		
+//		System.out.println(courseOneToMany.getAllReviews().toString());
+		
+		//deleting course - remember cascade is set to ALL on courses to review Mapping . so it will delete review
+		//but deleting review wont delete course -  as set in our mapping
+//		CourseOneToMany courseOneToMany = session.get(CourseOneToMany.class, 4);
+//		session.delete(courseOneToMany);
+//		session.getTransaction().commit();
+		
+		//this will only delete review and leave the course because of cascade type
+		Review review = session.get(Review.class, 1);
+		session.delete(review);
+		session.getTransaction().commit();
 		
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}finally {
+			
+			
+			
 			session.close();
 		}
 	}
