@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -43,6 +45,13 @@ public class CourseOneToMany {
 	private List<Review> allReviews;
 	
 	
+	//we have JoinTable called course_student in this table
+	// we have the id of course and student link together
+	// this table hold the relationship between the two tables
+	//course and students
+	
+	
+	
 	
 	public List<Review> getAllReviews() {
 		return allReviews;
@@ -51,7 +60,25 @@ public class CourseOneToMany {
 	public void setAllReviews(List<Review> allReviews) {
 		this.allReviews = allReviews;
 	}
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH,
+			CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+	@JoinTable(
+			name="course_student",
+			joinColumns = @JoinColumn(name="course_id"),
+			inverseJoinColumns = @JoinColumn(name="student_id")
+			)
+	private List<StudentCourse> students;
+	
+	public List<StudentCourse> getStudents() {
+		return students;
+	}
 
+	public void setStudents(List<StudentCourse> students) {
+		this.students = students;
+	}
+
+	
 	@Column(name="title")
 	private String title;
 
@@ -99,5 +126,12 @@ public class CourseOneToMany {
 		}
 		allReviews.add(review);
 //		review.setCourseOneToMany(this); // we dont need to link back to review since is uni-directional
+	}
+	
+	public void addStudent(StudentCourse studentCourse) {
+		if(students == null) {
+			students = new ArrayList<StudentCourse>();
+		}
+		students.add(studentCourse);
 	}
 }
